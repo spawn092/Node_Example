@@ -1,0 +1,23 @@
+{
+  "name": "node_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spawn092/Node_Example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spawn092/Node_Example/issues"
+  },
+  "homepage": "https://github.com/spawn092/Node_Example#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
