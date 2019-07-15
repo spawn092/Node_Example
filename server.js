@@ -2,11 +2,17 @@
 var http = require('http');
 var express = require('express')
 var app = express ();
-//var fs = require('fs');
+//var fs = require('fs'); //used in 8a
 var server = http.Server(app);
 var bodyParser= require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+
+var dummyArticle ={
+  title:"Test article from server",
+  content: "Test content for this article"
+}
+
 //(8a)
   // var server = http.createServer(function(req, res){
   //   res.statusCode = 200;
@@ -32,6 +38,12 @@ app.use(bodyParser.urlencoded({extended:true}));
   app.get('/form', function(req, res){
     res.sendFile(__dirname+'/form.html')
   })
+
+  //ejs to send on console
+  app.get('/article', function(req, res){
+    res.render('article.ejs', {article:dummyArticle})
+  })
+
   app.get('/about/second', function(req, res){
     res.sendFile(__dirname+'/second.html')
   })
