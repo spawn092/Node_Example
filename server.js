@@ -5,10 +5,24 @@ var app = express ();
 //var fs = require('fs'); //used in 8a
 var server = http.Server(app);
 var bodyParser= require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+var mongo = require('mongodb')  //task-9
 
-var dummyArticle ={
+var db_url = "mongodb://localhost:27017"
+var db;
+mongo.MongoClient.connect(db_url,{useNewUrlParser:true}, 
+  function(err,client){
+    if(err){
+      console.log("Could Not Connect DB")
+
+    }else{
+      db = client.db('node-cw9')
+    }
+
+})
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended:true}));
+
+var dummyArticle ={     //8d
   title:"Test article from server",
   content: "Test content for this article"
 }
@@ -39,9 +53,9 @@ var dummyArticle ={
     res.sendFile(__dirname+'/form.html')
   })
 
-  //ejs to send on console
+  //ejs to send on console(8d)
   app.get('/article', function(req, res){
-    res.render('article.ejs', {article:dummyArticle})
+    res.render('article.ejs', {article:dummyArticle})//8d
   })
 
   app.get('/about/second', function(req, res){
@@ -49,6 +63,14 @@ var dummyArticle ={
   })
   app.post('/article/new', function(req, res){
     console.log(req.body)
+    db.createCollection('articles', function(err, collection){
+      console.log(collection)
+
+    })
+
+    var collection= db.collection('articles')
+    collection.save(req.body)
+
     res.send({message:"data received"})
   })
   server.listen(3000, 'localhost', function(){
